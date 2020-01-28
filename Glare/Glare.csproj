@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200117133353_ddingIdentity.cs" />
+    <Compile Remove="Migrations\20200117133353_ddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200117133600_AddingIdentity.cs" />
+    <Compile Remove="Migrations\20200117133600_AddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200117135511_AddingIdentity.cs" />
+    <Compile Remove="Migrations\20200117135511_AddingIdentity.Designer.cs" />
+    <Compile Remove="Migrations\20200117142339_OrderTbleRecreated.cs" />
+    <Compile Remove="Migrations\20200117142339_OrderTbleRecreated.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+  </ItemGroup>
+
+
+
+</Project>

@@ -1,0 +1,84 @@
+﻿@page
+@model Glare.CartModel
+@{
+    ViewData["Title"] = "Cart";
+    var items = "Item";
+}
+
+
+@if (Model.MyCart != null)
+{
+    @if (Model.MyCart.Count > 1)
+    {
+        items = "Items";
+    }
+
+    <h1>Cart (@Model.MyCart.Count @items)</h1>
+        if (TempData["Message"] != null)
+        {
+            <span style="color:red">@TempData["Message"]</span>
+        }
+
+    @if (Model.MyCart.Count > 0)
+    {
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td>ITEM</td>
+                    <td>QUANTITY</td>
+                    <td>UNIT PRICE</td>
+                    <td>SUBTOTAL</td>
+                    <td>ACTION</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MyCart)
+                {
+                    <tr>
+                        <td>@item.Product.Name </td>
+                        <td>
+                            <input type="number" asp-for="@item.Quantity" class="form-control" id="@item.ItemId
+                               " />
+                        </td>
+                        <td>@string.Format("{0:C}", item.Product.Price)</td>
+                        @{var subTotal = @item.Product.Price * (decimal)@item.Quantity;
+                        }
+                        <td>@string.Format("{0:C}", subTotal)</td>
+                        <td>
+                            <form method="post" asp-route-id="@item.ItemId">
+                                <input type="hidden" asp-for="@item.ItemId" />
+                                <button type="submit" class="btn btn-danger">Remove Item</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p><b>TOTAL: <span>@Model.Total </span></b></p>
+    }
+    else
+    {
+        <p>You have no items in your Cart</p>
+    }
+
+}
+
+<a class="btn btn-dark" asp-page="/Index">CONTINUE SHOPPING</a>
+@if (Model.MyCart.Count > 0)
+{
+    <a class="btn btn-primary" asp-page="/Checkout" asp-route-id="@Model.ShoppingCartId">PROCEED TO CHECK OUT</a>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".form-control").on("input", function () {
+                var newQuantity = $(this).val();
+
+            });
+        });
+    </script>
+
+}
+

@@ -1,0 +1,39 @@
+﻿@page
+@model Glare.UsersInRoleModel
+@{
+    ViewData["Title"] = "UsersInRole";
+}
+
+<h1>EditUserInRole View</h1>
+@{ 
+    if (TempData["Message"] != null)
+    {
+        <span style="color:red">@TempData["Message"]</span>
+    }
+}
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            Add or Remove Users From this Role 
+        </div>
+        <div class="card-body">
+            @if (Model.UsersRole != null)
+            {
+                @for (int i = 0; i < Model.UsersRole.Count; i++)
+                {
+                    <div class="form-check">
+                        <input type="hidden" asp-for="@Model.UsersRole[i].UserName" />
+                        <input type="hidden" asp-for="@Model.UsersRole[i].UserId" />
+                        <input type="checkbox" asp-for="@Model.UsersRole[i].IsSelected." class="form-check-input" />
+                        <label asp-for="@Model.UsersRole[i].IsSelected">@Model.UsersRole[i].UserName</label>
+                    </div>
+                }
+            }
+
+        </div>
+        <div>
+            <button type="submit" class="btn btn-danger">Update</button>
+        </div>
+
+    </div>
+</form>

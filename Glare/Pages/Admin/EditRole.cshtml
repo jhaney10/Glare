@@ -1,0 +1,42 @@
+﻿@page
+@model Glare.EditRoleModel
+@{
+    ViewData["Title"] = "EditRole";
+}
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Update Details</h1>
+                    <div asp-validation-summary="All"></div>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <label asp-for="UserRole.RoleId"></label>
+                        <input asp-for="UserRole.RoleId" class="form-control" readonly />
+                        <label asp-for="UserRole.RoleName"></label>
+                        <input asp-for="UserRole.RoleName" class="form-control" />
+
+                        <input type="submit" name="save" value="Save" class="btn btn-success" />
+                    </form>
+                </div>
+                <div class="card-footer">
+                    @if (Model.UserRole.RoleUsers != null)
+                    {
+                        <ul>
+                            @foreach (var user in Model.UserRole.RoleUsers)
+                            {
+                                <li>@user</li>
+                            }
+                        </ul>
+
+                    }
+                    else
+                    {
+                        <p>No Users in this Role</p>
+                    }
+                    <a asp-page="/Admin/UsersInRole" asp-route-id="@Model.UserRole.RoleId">Add/Remove Users</a>
+                </div>
+            </div>
+        </div>
+    </div>

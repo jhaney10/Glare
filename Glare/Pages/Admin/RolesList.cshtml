@@ -1,0 +1,47 @@
+﻿@page
+@model Glare.RolesListModel
+@{
+    ViewData["Title"] = "RolesList";
+}
+
+    <div class="card">
+        @if (Model.MyRoles.Any())
+        {
+            <h1>Create A New Role</h1>
+            <div class="row">
+                <div class="col-md-3">
+                    <a asp-page="/Admin/CreateRoles" class="btn btn-secondary">Create role</a>
+                </div>
+            </div>
+
+            <h2>All Roles</h2>
+
+            @foreach (var role in Model.MyRoles)
+            {
+                <div class="card-header">
+                    Role Id: @role.Id
+                </div>
+                <div class="card-body">
+                    Role Name: @role.Name
+                </div>
+                <div class="card-footer">
+                    <a asp-page="/Admin/EditRole" asp-route-id="@role.Id" class="btn btn-secondary">Edit role</a>
+                    @*@<a asp-controller="Admin" asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-secondary">Delete role</a>*@
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="card-header">
+                No Roles
+            </div>
+            <div class="card-body">
+                <h1>Create A New Role</h1>
+                <a asp-controller="Admin" asp-action="CreateRole" class="btn btn-secondary">
+                    Create role
+                </a>
+            </div>
+        }
+    </div>
+

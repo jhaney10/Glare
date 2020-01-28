@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+    <div class="grid-wrapper my-5">
+        @if (Model.PaginatedProducts != null)
+        {
+            @foreach (var item in Model.PaginatedProducts)
+            {
+        <div class="product">
+            @if (item.Photo.Count > 0)
+            {
+                foreach (var photo in item.Photo)
+                {
+                    <a asp-page="Products/Details" asp-route-id="@item.ProductId"><img src="~/images/@photo.PhotoPath" class="img-fluid product__image2"></a>
+                    break;
+                }
+            }
+            else
+            {
+                <a class="product__image" asp-page="Products/Details" asp-route-id="@item.ProductId"></a>
+            }
+            <div class="product__name">
+                <p>
+                    <a asp-page="Products/Details" asp-route-id="@item.ProductId">@item.Name</a>
+                </p>
+
+            </div>
+            <div class="product__price">
+                <label>@Html.DisplayFor(modelItem => item.Price)</label>
+            </div>
+        </div>
+            }
+        }
+
+    </div>
+@{ 
+    var prevDisabled = !Model.PaginatedProducts.HasPreviousPage ? "disabled" : " ";
+    var nextDisabled = !Model.PaginatedProducts.HasNextPage ? "disabled" : " ";
+}
+
+<a asp-page="/Index" asp-route-currentPage="@(Model.PaginatedProducts.CurrentPage - 1)"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="/Index" asp-route-currentPage="@(Model.PaginatedProducts.CurrentPage + 1)"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>

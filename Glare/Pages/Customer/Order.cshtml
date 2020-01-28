@@ -1,0 +1,49 @@
+﻿@page
+@model Glare.OrderModel
+@{
+    ViewData["Title"] = "Order";
+}
+
+<h1>All Orders</h1>
+@if (Model.Orders.Any())
+{
+    foreach (var order in Model.Orders)
+    {
+        foreach (var orderitem in order.OrderItems)
+        {
+            <div class="card my-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        @foreach (var photo in orderitem.Product.Photo)
+                        {
+                            <img src="~/images/@photo.PhotoPath" class="img-fluid" style="height: 100px; width: 100px">
+                             break;
+                        }
+
+                    </div>
+                    <div class="col-md-8">
+                        <p><b>@orderitem.Product.Name</b></p>
+                        @if (order.OrderStatus == Models.OrderStatus.Delivered)
+                        {
+                    <p><b>@order.OrderStatus on @string.Format("{0: dd/MM/yyyy}", order.DeliveryDate)</b></p>
+                            
+                        }
+                        else
+                        {
+                            <p>@order.OrderStatus</p>
+                        }
+                        <p>Order Date: @order.OrderDate</p>
+                        <a asp-route-id="@order.OrderId" asp-page="/Customer/Order/Details">More Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}
+else
+{
+    <p><i>You have no orders</i></p>
+    <a asp-page="/Index">Start Shopping</a>
+}
+
+

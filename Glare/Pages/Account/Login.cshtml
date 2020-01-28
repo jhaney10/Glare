@@ -1,0 +1,44 @@
+﻿@page
+@model Glare.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h3>Log  In</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="ReturningUser.Email"></label>
+                        <input asp-for="ReturningUser.Email" class="form-control" />
+                        <span asp-validation-for="ReturningUser.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReturningUser.Password"></label>
+                        <input asp-for="ReturningUser.Password" class="form-control" />
+                        <span asp-validation-for="ReturningUser.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <div class="custom-checkbox">
+                                <label asp-for="ReturningUser.RememberMe">
+                                    <input asp-for="ReturningUser.RememberMe" class="form-check-input" type="checkbox" />
+                                    @Html.DisplayNameFor(m => m.ReturningUser.RememberMe)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Login</button>
+                </form>
+                <p>A New User? <a asp-page="/Account/Register">Register Here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
