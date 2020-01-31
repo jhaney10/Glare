@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Glare.Models;
 using Glare.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +13,9 @@ namespace Glare
     public class UsersInRoleModel : PageModel
     {
         private RoleManager<IdentityRole> _roleManager;
-        private UserManager<IdentityUser> _userManager;
+        private UserManager<AppUser> _userManager;
 
-        public UsersInRoleModel(RoleManager<IdentityRole> roleManager, UserManager<IdentityUser> userManager)
+        public UsersInRoleModel(RoleManager<IdentityRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
             _userManager = userManager;

@@ -18,7 +18,7 @@ namespace Glare.ViewModels
         public DateTime OrderDate { get; set; }
         public List<CartItem> OrderItems { get; set; }
         public OrderStatus? OrderStatus { get; set; }
-        public IdentityUser Customer { get; set; }
+        public AppUser Customer { get; set; }
         [Required]
         public string DeliveryAddress { get; set; }
     }

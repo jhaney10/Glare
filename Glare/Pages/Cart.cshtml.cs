@@ -18,11 +18,11 @@ namespace Glare
 {
     public class CartModel : PageModel
     {
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<AppUser> _userManager;
+        private SignInManager<AppUser> _signInManager;
         private ProductContext _context;
 
-        public CartModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ProductContext context)
+        public CartModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ProductContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;

@@ -10,7 +10,14 @@ namespace Glare.ViewModels
     public class RegisterVM
     {
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+        [Required]
         [EmailAddress]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]

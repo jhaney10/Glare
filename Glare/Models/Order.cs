@@ -19,7 +19,7 @@ namespace Glare.Models
         public int OrderId { get; set; }
         [Display(Name = "Order Date")]
         public DateTime OrderDate { get; set; }
-        public IdentityUser Customer { get; set; }
+        public AppUser Customer { get; set; }
         public ICollection<CartItem> OrderItems { get; set; }
         [Display(Name = "Order Status")]
         public OrderStatus? OrderStatus { get; set; }

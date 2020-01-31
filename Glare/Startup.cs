@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Glare.Models;
 
 namespace Glare
 {
@@ -37,7 +38,7 @@ namespace Glare
 
             services.AddDbContext<ProductContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 10;
                 options.Password.RequireDigit = false;
@@ -69,6 +70,7 @@ namespace Glare
             else
             {
                 app.UseExceptionHandler("/Error");
+                app.UseStatusCodePagesWithRedirects("/Error/_{0}");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

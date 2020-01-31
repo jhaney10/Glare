@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Glare.Models;
 using Glare.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,11 @@ namespace Glare
 {
     public class RegisterModel : PageModel
     {
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<AppUser> _userManager;
+        private SignInManager<AppUser> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public RegisterModel(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+        public RegisterModel(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -36,10 +37,12 @@ namespace Glare
                 return Page();
             }
 
-            var user = new IdentityUser
+            var user = new AppUser
             {
                 UserName = NewUser.Email,
                 Email = NewUser.Email,
+                FirstName = NewUser.FirstName,
+                LastName = NewUser.LastName
             };
             var result = await _userManager.CreateAsync(user, NewUser.Password);
             if (result.Succeeded)

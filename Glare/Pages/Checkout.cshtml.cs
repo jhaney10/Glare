@@ -17,11 +17,11 @@ namespace Glare
     public class CheckoutModel : PageModel
     {
         private ProductContext _context;
-        private UserManager<IdentityUser> _userManager;
-        private SignInManager<IdentityUser> _signInManager;
+        private UserManager<AppUser> _userManager;
+        private SignInManager<AppUser> _signInManager;
 
-        public CheckoutModel(ProductContext context, UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+        public CheckoutModel(ProductContext context, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
