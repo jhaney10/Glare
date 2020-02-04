@@ -62,6 +62,9 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+.message-alert{
+    color: red;
+}
 .grid-wrapper{
     display: grid;
     grid-template-columns: repeat(6, 1fr);

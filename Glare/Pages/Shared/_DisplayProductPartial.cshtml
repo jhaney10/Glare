@@ -1,0 +1,25 @@
+﻿@model Product
+
+    <div class="product">
+        @if (Model.Photo.Count > 0)
+        {
+            foreach (var photo in Model.Photo)
+            {
+                <a asp-page="Products/Details" asp-route-id="@Model.ProductId"><img src="~/images/@photo.PhotoPath" class="img-fluid product__image2"></a>
+                break;
+            }
+        }
+        else
+        {
+            <a class="product__image" asp-page="Products/Details" asp-route-id="@Model.ProductId"></a>
+        }
+        <div class="product__name">
+            <p>
+                <a asp-page="Products/Details" asp-route-id="@Model.ProductId">@Model.Name</a>
+            </p>
+
+        </div>
+        <div class="product__price">
+            <label>@Html.DisplayFor(modelItem => Model.Price)</label>
+        </div>
+    </div>

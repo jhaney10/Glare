@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using Glare.Models;
@@ -30,13 +31,27 @@ namespace Glare
 
         [BindProperty]
         public RegisterVM NewUser { get; set; }
+        [TempData]
+        public string Message { get; set; }
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            try
+            {
+                var checkEmail = await _userManager.FindByEmailAsync(NewUser.Email);
+                if (checkEmail != null)
+                {
+                    Message = "This email already exists";
+                    return Page();
+                }
+            }
+            catch (DbException ex)
+            {
+                throw new InvalidOperationException("Database connect error", ex);
+            }
             var user = new AppUser
             {
                 UserName = NewUser.Email,
@@ -47,7 +62,7 @@ namespace Glare
             var result = await _userManager.CreateAsync(user, NewUser.Password);
             if (result.Succeeded)
             {
-                var role = await _roleManager.FindByNameAsync("User");
+                var role = await _roleManager.FindByNameAsync("Admin");
                 if (role != null)
                 {
                     await _userManager.AddToRoleAsync(user, role.Name);
@@ -65,5 +80,7 @@ namespace Glare
             }
 
         }
+
+        
     }
 }

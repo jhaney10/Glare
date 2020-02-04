@@ -9,20 +9,20 @@ namespace Glare.ViewModels
 {
     public class RegisterVM
     {
-        [Required]
+        [Required(ErrorMessage="Please enter your First Name")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter your Last Name")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Please enter a valid email address")]
+        [EmailAddress(ErrorMessage = "The entered value is not a valid email address")]
         [Display(Name = "Email Address")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please enter a strong password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please re-enter your password")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Password does not match")]
