@@ -16,13 +16,14 @@
             Filter by Category:
 
             <input type="text" name="category" value="@Model.CurrentFilter" />
+            
             @*<select name="category">
-                    <option>None</option>
-                    <option value="Bags">Bags</option>
-                    <option value="Dresses">Dresses</option>
-                    <option value="Accessories">Accessories</option>
-                    <option value="Shoes">Shoes</option>
-                </select>*@
+            <option>None</option>
+            <option value="Bags">Bags</option>
+            <option value="Dresses">Dresses</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Shoes">Shoes</option>
+        </select>*@
             <input type="submit" value="Search" class="btn btn-primary" /> |
             <a asp-page="./Index">Back to full List</a>
         </p>
@@ -39,13 +40,13 @@
                 @Html.DisplayNameFor(model => model.Products[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].Price)
+                @Html.DisplayNameFor(model => model.Products[0].Price)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Products[0].Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Product[0].Category)
+                @Html.DisplayNameFor(model => model.Products[0].Category)
             </th>
             <th></th>
         </tr>

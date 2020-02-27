@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Glare
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class RolesListModel : PageModel
     {
         private RoleManager<IdentityRole> _roleManager;

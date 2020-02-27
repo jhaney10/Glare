@@ -40,8 +40,7 @@
                     <div class="form-group">
                         <label asp-for="NewUser.Email"></label>
                         <input asp-for="NewUser.Email" class="form-control" id="userEmail" />
-                        <span id="emailCheck" class="text-danger"></span><br />
-                        <span asp-validation-for="NewUser.Email" class="text-danger"></span>
+                        <span asp-validation-for="NewUser.Email" class="text-danger" id="emailCheck"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="NewUser.Password"></label>

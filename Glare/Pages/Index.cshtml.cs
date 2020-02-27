@@ -35,7 +35,7 @@ namespace Glare.Pages
             IQueryable<Product> productIQ = from m in _context.Products
                                             select m;
             int pageSize = PageSize;
-            PaginatedProducts = await PaginatedList<Product>.ProductAsync(productIQ.Include(m => m.Photo)
+            PaginatedProducts = await PaginatedList<Product>.ItemAsync(productIQ.Include(m => m.Photo)
                 .AsNoTracking(), currentPage ?? 1, pageSize);
 
             //Products = await _context.Products

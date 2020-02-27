@@ -46,7 +46,7 @@ namespace Glare
             }
 
             int pageSize = PageSize;
-            Products = await PaginatedList<Product>.ProductAsync(productIQ.AsNoTracking(), currentPage ?? 1, pageSize);
+            Products = await PaginatedList<Product>.ItemAsync(productIQ.AsNoTracking(), currentPage ?? 1, pageSize);
             //Product = await productIQ.AsNoTracking().ToListAsync();
         }
     }

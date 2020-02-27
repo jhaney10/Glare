@@ -1,0 +1,75 @@
+﻿@page
+@model Glare.Pages.Admin.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SelectedUser.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SelectedUser.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h4>User Roles</h4>
+    @if (Model.Roles.Any())
+    {
+    <ul>
+        @foreach(var role in Model.Roles)
+        {
+            <li>@role</li>
+        }
+    </ul>
+    }
+    else
+    {
+        <p>This User has no roles</p>
+    }
+</div>
+<div>
+    <h4>User Claims</h4>
+    @if (Model.UserClaims.Any())
+    {
+        <ul>
+            @foreach (var claim in Model.UserClaims)
+            {
+                <li>@claim</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>This User has no claims</p>
+    }
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.SelectedUser.Id">Edit User's Roles</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

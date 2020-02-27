@@ -51,6 +51,7 @@
                                     <a class="nav-link" asp-page="/Products/Index">All Products</a>
                                     <a class="nav-link" asp-page="/Orders/Index">All Orders</a>
                                     <a class="nav-link" asp-page="/Admin/RolesList">All Roles</a>
+                                    <a class="nav-link" asp-page="/Admin/Users/Index">All Users</a>
                                 </div>
                             </li>
                         }
@@ -62,7 +63,7 @@
                             </li>
                             <li class="nav-item">
                                 <form method="post" asp-page="/Account/Logout">
-                                    <button type="submit" class="nav-link btn btn-link">Logout @user.FirstName</button>
+                                    <button type="submit" class="nav-link btn btn-link">Logout @user.UserName</button>
                                 </form>
                             </li>
                         }

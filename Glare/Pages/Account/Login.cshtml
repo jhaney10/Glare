@@ -37,8 +37,28 @@
                     </div>
                     <button type="submit" class="btn btn-secondary">Login</button>
                 </form>
+                
+                    
+
                 <p>A New User? <a asp-page="/Account/Register">Register Here</a></p>
+                
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+        <p>Use another service to log in.</p>
+        @if (Model.ReturningUser.ExternalLogins.Count() == 0)
+        {
+            <p>No external logins have been configured</p>
+        }
+        else
+        {
+            <form method="post" asp-page-handler="GoogleLogin" asp-route-returnUrl="@Model.ReturningUser.ReturnUrl">
+                @foreach (var provider in Model.ReturningUser.ExternalLogins)
+                {
+                    <button type="submit" class="btn btn-warning" title ="Login using your @provider.Name  account"name="provider" value="@provider.Name">@provider.DisplayName</button>
+                }
+            </form>
+        }
     </div>
 </div>

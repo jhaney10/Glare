@@ -35,7 +35,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="ProductVM.Category" class="control-label"></label>
-                <input asp-for="ProductVM.Category" class="form-control" />
+                <select class="form-control" asp-for="ProductVM.Category" asp-items="@new SelectList(Enum.GetNames(typeof(Category)))">
+                    <option disabled value="" selected>Select a Category</option>
+                </select>
                 <span asp-validation-for="ProductVM.Category" class="text-danger"></span>
             </div>
             @**<div class="form-group">

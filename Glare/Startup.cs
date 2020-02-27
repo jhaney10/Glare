@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Glare.Data;
+using Glare.Services;
 using Microsoft.AspNetCore.Identity;
-using System.Threading;
 using System.Globalization;
-using Microsoft.AspNetCore.Localization;
 using Glare.Models;
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
 namespace Glare
 {
     public class Startup
@@ -35,18 +31,52 @@ namespace Glare
                 {
                     options.Conventions.AddPageRoute("/Checkout","Checkout/{id?}");
                 });
+            services.AddAuthentication()
+                .AddGoogle(options => {
 
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                });
+                
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/AccessDenied");
+            });
             services.AddDbContext<ProductContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ProductContext")));
+                {
+                options.UseSqlServer(Configuration.GetConnectionString("ProductContext"),
+                    sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.EnableRetryOnFailure(
+                        maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(30),
+                        errorNumbersToAdd: null);
+                    });
+            });
+
             services.AddIdentity<AppUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 10;
                 options.Password.RequireDigit = false;
                 options.Password.RequiredUniqueChars = 3;
                 options.Password.RequireUppercase = false;
+                options.SignIn.RequireConfirmedEmail = false;
             })
-                .AddEntityFrameworkStores<ProductContext>();
-
+                .AddEntityFrameworkStores<ProductContext>()
+                .AddDefaultTokenProviders();
+            //Email Sender Services
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            services.AddAuthorization(options =>
+            {
+                //Claims Based Policy
+                options.AddPolicy("CreateRolePolicy",
+                    policy => policy.RequireClaim("Create Role")
+                                    .RequireClaim("Delete Role"));
+                //Role Based Policy
+                options.AddPolicy("AdminRolePolicy",
+                    policy => policy.RequireRole("Admin"));
+            });
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
@@ -84,6 +114,7 @@ namespace Glare
             app.UseStaticFiles();
             app.UseSession();
             app.UseAuthentication();
+          
             app.UseRouting();
             app.UseAuthorization();
 

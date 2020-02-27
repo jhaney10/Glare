@@ -36,12 +36,12 @@ namespace Glare.ViewModels
                 return (CurrentPage < TotalPages);
             }
         }
-        public static async Task<PaginatedList<T>> ProductAsync(IQueryable<T> productList, int currentPage, int pageSize)
+        public static async Task<PaginatedList<T>> ItemAsync(IQueryable<T> itemList, int currentPage, int pageSize)
         {
-            var count = await productList.CountAsync();
+            var count = await itemList.CountAsync();
             var skip = (currentPage - 1) * pageSize;
             var take = pageSize;
-            var pageResults = await productList.Skip(skip).Take(take).ToListAsync();
+            var pageResults = await itemList.Skip(skip).Take(take).ToListAsync();
             return new PaginatedList<T>(pageResults, count, currentPage, pageSize);
            
            
